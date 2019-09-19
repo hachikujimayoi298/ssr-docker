@@ -1,7 +1,21 @@
 # ssr-docker
-A docker image for [ShadowsocksR](https://github.com/shadowsocksrr/shadowsocksr-libev)
+A docker image for [ShadowsocksR](https://github.com/shadowsocksrr/shadowsocksr-libev) and [Shadowsocks](https://github.com/shadowsocks/shadowsocks-libev)
 
-This docker image accepts and executes whatever commands along with their arguments passed in via `docker run ssr-docker cmd args...`. The three executables `ssr-local`, `ssr-redir`, and `ssr-net` are located in `/usr/local/bin`. Besides, the `shadowsocks-libev` package from alpine package manager is also installed. Remeber to publish the relevant ports, and mount a volumn if you want to use a configuration file. If you want to tweak the image, run `docker run -it ssr-docker /bin/sh` to enter the shell.
+This docker image accepts and executes whatever commands along with their arguments passed in via `docker run ssr-docker cmd args...`. The executables for shadowsocks and shadowsocksR are located in `/usr/local/bin`. Remeber to publish the relevant ports, and mount a volumn if you want to use a configuration file. If you want to tweak the image, run `docker run -it ssr-docker /bin/sh` to enter the shell.
+
+## Available Executables
+```
+# shadowsocksR 2.5.3
+ssr-local
+ssr-nat
+ssr-redir
+# shadowsocks 3.3.1
+ss-local
+ss-manager
+ss-tunnel
+ss-redir
+ss-nat
+```
 
 ## Examples
 ```sh
