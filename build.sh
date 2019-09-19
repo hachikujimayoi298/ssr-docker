@@ -8,4 +8,4 @@ if [ $# -eq 0 ]
     args="${@:2}"
 fi
 
-docker build -t ssr-docker:$tag . $args
+docker build -t hachikujimayoi298/ssr-docker:$tag . $args
