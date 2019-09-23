@@ -18,8 +18,13 @@ RUN mkdir out \
  && cp /${ssr_archive}/src/ss-redir /out/ssr-redir \
  && cp /${ss_archive}/src/ss-* /out/ 
 
+FROM v2ray/official AS v2ray
+
 FROM alpine
 COPY --from=build /out/* /usr/local/bin/
-RUN apk add --update --no-cache libev openssl libsodium mbedtls pcre $(scanelf --needed --nobanner /usr/bin/ss-* | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' | sort -u)
+RUN apk add --update --no-cache libev openssl libsodium mbedtls pcre ca-certificates $(scanelf --needed --nobanner /usr/bin/ss-* | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' | sort -u)
+COPY --from=v2ray /usr/bin/v2ray /usr/bin/
+COPY --from=v2ray /etc/v2ray /etc/ 
 COPY ./docker-entrypoint.sh /
+ENV PATH /usr/bin/v2ray:$PATH
 ENTRYPOINT ["/docker-entrypoint.sh"]
